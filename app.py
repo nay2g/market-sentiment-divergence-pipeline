@@ -1,18 +1,19 @@
+from PIL import Image
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 from src.data_fetcher import fetch_combined_news, fetch_stock_data
 from src.sentiment import analyze_news_sentiment, evaluate_quant_divergence
 
-# Page Configuration (Browser Tab Favicon & Layout)
+# Load logo as PIL Image for browser tab favicon
+favicon = Image.open("assets/logo.png")
+
+# Page Configuration (Sets custom logo on browser tab)
 st.set_page_config(
     page_title="Market Sentiment & Divergence Engine",
-    page_icon="assets/logo.png",
+    page_icon=favicon,
     layout="wide",
 )
-
-# Sidebar Header Logo
-st.sidebar.image("assets/logo.png", use_container_width=True)
 
 st.title("📈 Quantitative Market Sentiment & Divergence Engine")
 st.markdown(
