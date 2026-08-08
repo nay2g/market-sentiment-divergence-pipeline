@@ -1,0 +1,7 @@
+torch
+transformers
+yfinance
+pandas
+plotly
+streamlit
+certifi
