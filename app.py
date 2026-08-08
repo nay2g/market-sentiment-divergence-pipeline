@@ -5,10 +5,7 @@ import streamlit as st
 from src.data_fetcher import fetch_combined_news, fetch_stock_data
 from src.sentiment import analyze_news_sentiment, evaluate_quant_divergence
 
-# Load logo as PIL Image for browser tab favicon
-favicon = Image.open("assets/logo.png")
-
-# Page Configuration (Sets custom logo on browser tab)
+# Page Configuration
 st.set_page_config(
     page_title="Market Sentiment & Divergence Engine",
     page_icon=favicon,
@@ -133,7 +130,7 @@ if st.session_state["analysis_data"] is not None:
       delta=f"{stock_info['daily_return_pct']}%",
   )
   col4.metric(
-      "Weighted Sentiment Index (S_adj)",
+      "Weighted Sentiment Index",
       f"{S:.4f}",
       help=(
           "Directional non-diluted sentiment score taking into account"
@@ -177,8 +174,7 @@ if st.session_state["analysis_data"] is not None:
         f" **{divergence_result['volatility_pct']}%** of share price)"
     )
     st.markdown(
-        f"**Volatility-Normalized Return ($R_{{norm}}$):**"
-        f" `{divergence_result['r_norm']}`"
+        f"**Volatility-Normalized Return:** `{divergence_result['r_norm']}`"
     )
 
   with right_col:
@@ -189,7 +185,7 @@ if st.session_state["analysis_data"] is not None:
             value=S,
             domain={"x": [0, 1], "y": [0, 1]},
             title={
-                "text": "Non-Diluted Sentiment Index (S)",
+                "text": "Non-Diluted Sentiment Index",
                 "font": {"size": 14},
             },
             gauge={
@@ -223,8 +219,8 @@ if st.session_state["analysis_data"] is not None:
     # User Guide Expander
     with st.expander("📖 How to read these metrics"):
       st.markdown("""
-            * **Sentiment Index ($S_{\text{adj}}$):** Non-diluted FinBERT sentiment score ranging from **-1.0** to **+1.0**.
-            * **Volatility-Normalized Return ($R_{\text{norm}}$):** Daily percentage return divided by intraday volatility spread. Indicates what % of total daily price movement was directional.
+            * **Sentiment Index:** Non-diluted FinBERT sentiment score ranging from **-1.0** to **+1.0**.
+            * **Volatility-Normalized Return:** Daily percentage return divided by intraday volatility spread. Indicates what % of total daily price movement was directional.
             * 🟢 **Green (> 0.08):** Dominant bullish news flow.
             * ⚪ **Gray (-0.08 to 0.08):** Neutral / balanced news flow.
             * 🔴 **Red (< -0.08):** Dominant bearish news flow.
