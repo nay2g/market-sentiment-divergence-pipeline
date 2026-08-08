@@ -1,4 +1,3 @@
-from PIL import Image
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
@@ -8,7 +7,7 @@ from src.sentiment import analyze_news_sentiment, evaluate_quant_divergence
 # Page Configuration
 st.set_page_config(
     page_title="Market Sentiment & Divergence Engine",
-    page_icon=favicon,
+    page_icon="📈",
     layout="wide",
 )
 
@@ -50,7 +49,6 @@ if st.session_state["ticker_history"]:
   st.sidebar.markdown("---")
   st.sidebar.subheader("Recent Searches")
 
-  # Tightly aligned container columns that scale smoothly across 1, 2, or 3 buttons
   hist_cols = st.sidebar.columns(len(st.session_state["ticker_history"]))
   for idx, hist_ticker in enumerate(st.session_state["ticker_history"]):
     if hist_cols[idx].button(
@@ -70,7 +68,6 @@ if should_run:
     stock_info = None
     sentiment_results = None
 
-    # Ingestion & model inference inside spinner
     with st.spinner(
         f"Ingesting market data & scraping headlines for {active_ticker}..."
     ):
@@ -83,7 +80,6 @@ if should_run:
       except Exception as e:
         error_message = str(e)
 
-    # UI updates and exception handling outside spinner block to ensure loading state unmounts
     if error_message:
       st.error(
           f"❌ **Invalid Ticker or Data Error:** '{active_ticker}' could not be"
@@ -178,7 +174,7 @@ if st.session_state["analysis_data"] is not None:
     )
 
   with right_col:
-    # Sentiment Gauge Meter (Top margin expanded to t=70)
+    # Sentiment Gauge Meter
     fig = go.Figure(
         go.Indicator(
             mode="gauge+number",
