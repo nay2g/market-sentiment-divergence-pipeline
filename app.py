@@ -157,7 +157,7 @@ if st.session_state["analysis_data"] is not None:
     elif status == "error":
       st.error(msg)
     else:
-      st.info(f"ℹ️ **NEUTRAL / NO CLEAR DIVERGENCE:**\n\n{msg}")
+      st.info(msg)
 
     # Quant Stats Summary
     st.markdown(
