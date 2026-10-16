@@ -15,16 +15,16 @@ Market price movements are frequently driven by corporate news flow. However, st
 
 This engine solves this problem by calculating a **Non-Diluted Weighted Sentiment Index ($S_{\text{adj}}$)** bounded between **$-1.0$ (Extreme Bearish)** and **$+1.0$ (Extreme Bullish)**. It then compares this index against the stock's **Volatility-Normalized Return ($R_{\text{norm}}$)** to flag underlying market biases:
 
-- **Bullish Divergence ($\mathbf{S > 0.08, R_{\text{norm}} < -0.15}$):** Positive news flow is meeting temporary selling pressure, signaling potential institutional accumulation.
-- **Bearish Divergence ($\mathbf{S < -0.08, R_{\text{norm}} > 0.15}$):** Price is advancing despite negative news flow, warning of a potential bull trap or profit-taking.
+- **Bullish Divergence ($\mathbf{S > 0.08, R_{\text{norm}} < -0.15}$):** Positive news flow is meeting selling pressure, which may indicate buying interest.
+- **Bearish Divergence ($\mathbf{S < -0.08, R_{\text{norm}} > 0.15}$):** Price is advancing despite negative news flow, which may indicate weak price support.
 - **Aligned Bullish / Bearish ($\mathbf{|S| > 0.08, |R_{\text{norm}}| > 0.15}$):** News sentiment matches clean directional price momentum.
 
 ---
 
 ## ✨ Key Features
 
-- **Multi-Source Scraping:** Combines `yfinance` ticker news with **Google News RSS feeds** using unthrottled parameter encoding to capture a dense headline sample without hit limits.
-- **Jaccard Headline Deduplication:** Filters out redundant or syndicated stories across multiple outlets using a token similarity threshold ($>0.70$).
+- **Multi-Source Scraping:** Combines `yfinance` ticker news with **Google News RSS feeds** to capture a dense headline sample (up to 40 RSS headlines plus Yahoo Finance headlines per run).
+- **Jaccard Headline Deduplication:** Filters out redundant or syndicated stories across multiple outlets using a token similarity threshold ($\geq 0.70$).
 - **Neutral Headline Noise Solution:** Scales directional sentiment ($S_{\text{dir}}$) by the square root of directional density ($\sqrt{N_{\text{dir}} / N_{\text{total}}}$) so non-directional or factual headlines do not artificially dilute sentiment intensity.
 - **Source Credibility Tiering:**
   - **Tier 1 ($W_{\text{source}} = 1.0$):** Major institutional media (*Reuters, Bloomberg, Wall Street Journal, Financial Times, CNBC, Barron's*).

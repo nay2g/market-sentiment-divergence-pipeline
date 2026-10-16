@@ -26,7 +26,10 @@ def fetch_stock_data(ticker_symbol: str) -> dict:
   day_low = hist["Low"].iloc[-1]
   volatility_spread = day_high - day_low
 
-  company_name = ticker.info.get("shortName", ticker_symbol)
+  try:
+    company_name = ticker.info.get("shortName", ticker_symbol)
+  except Exception:
+    company_name = ticker_symbol
 
   return {
       "ticker": ticker_symbol.upper(),
